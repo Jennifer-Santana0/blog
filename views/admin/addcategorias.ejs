@@ -8,7 +8,16 @@
 <body>
     <%- include ('../partials/header.ejs') %>
 
+    
+
     <div id="container">
+
+        <% for (let i = 0; i < erros.length; i++) { %>
+            <h4 class="alert"><%= erros[i].texto %></h4>
+        <% } %>
+
+        <br>
+
         <form action="/admin/categorias/nova" method="POST">
             <h3>Nova categoria</h3>
 

@@ -42,4 +42,11 @@ input{
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+.alert{
+    padding: 10px;
+    border: 3px solid red;
+    background-color: rgb(248, 98, 98);
+    margin-top: 5px;
 }

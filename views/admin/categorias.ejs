@@ -8,9 +8,23 @@
 <body>
 
     <%- include ('../partials/header.ejs') %>
+    
+    
 
     <div id="container">
+        <%- include ("../partials/msg.ejs") %>   
+        <br>
         <h2>Lista de categorias</h2>
+        
+
+        <%for(let i=0;i<categorias.length;i++){%>
+            <div class="box">
+                <h4><%=categorias[i].nome%></h4>
+                <p>Slug:<%=categorias[i].slug%></p>
+                <p>Data:<%=categorias[i].date%></p>
+            </div>
+        <%}%>
+
         <hr>
         
         <a href="/admin/categorias/add">

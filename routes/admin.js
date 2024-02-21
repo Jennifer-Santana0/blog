@@ -14,7 +14,11 @@ router.get('/admin',(req,res)=>{
 })
 
 router.get('/admin/categorias',(req,res)=>{
-    res.render('admin/categorias')
+    Categoria.find().sort({date:'desc'}).then((categorias)=>{
+        res.render('admin/categorias', {categorias:categorias})
+    }).catch((err)=>{
+        res.send('houve um erro ao listar as categorias')
+    })
 })
 
 router.get('/admin/categorias/add',(req,res)=>{
@@ -40,13 +44,13 @@ router.post('/admin/categorias/nova',(req,res)=>{
         }
     
         new Categoria(novaCategoria).save().then(()=>{
-            console.log('categoria salva')
+            req.flash('success_msg','Categoria criada com sucesso')
+            res.redirect('/admin/categorias')
         }).catch((err)=>{
-            console.log('erro ao salvar categoria ' + err)
+            req.flash('error_msg','houve algum erro ao salvar a categoria')
+            res.redirect('/admin/categorias/add')
         })
     }
-
-    
 })
 
 module.exports = router

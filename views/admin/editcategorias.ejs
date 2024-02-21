@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>editando categoria</title>
+</head>
+<body>
+    <%- include ('../partials/header.ejs') %>
+    <div id="container">
+        <form action="/admin/categorias/nova" method="POST">
+            <h3>Editar categoria</h3>
+    
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" placeholder="nome da categoria">
+            
+            <label for="slug">Slug:</label>
+            <input type="text" name="slug" placeholder="slug da categoria">
+    
+            <button type="submit">Criar categoria</button>
+        </form>
+    </div>
+   
+</body>
+</html>

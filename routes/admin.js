@@ -53,5 +53,9 @@ router.post('/admin/categorias/nova',(req,res)=>{
     }
 })
 
+router.get('/admin/categorias/edit/:id',(req,res)=>{
+    res.render('admin/editcategorias')
+})
+
 module.exports = router
 

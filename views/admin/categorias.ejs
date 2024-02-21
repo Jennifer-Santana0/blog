@@ -22,6 +22,9 @@
                 <h4><%=categorias[i].nome%></h4>
                 <p>Slug:<%=categorias[i].slug%></p>
                 <p>Data:<%=categorias[i].date%></p>
+                <a href="/admin/categorias/edit/<%= categorias[i].id %>">
+                    <button>Editar categoria</button>
+                </a>
             </div>
         <%}%>
 

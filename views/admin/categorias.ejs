@@ -25,6 +25,13 @@
                 <a href="/admin/categorias/edit/<%= categorias[i].id %>">
                     <button>Editar categoria</button>
                 </a>
+
+                <form action="/admin/categorias/deletar" method="post">
+                    <input type="hidden" name="id" value="<%=categorias[i].id%>">
+                    <button type="submit">Deletar</button>
+
+                </form>
+
             </div>
         <%}%>
 

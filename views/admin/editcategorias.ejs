@@ -8,16 +8,18 @@
 <body>
     <%- include ('../partials/header.ejs') %>
     <div id="container">
-        <form action="/admin/categorias/nova" method="POST">
+        <form action="/admin/categorias/edit" method="POST">
             <h3>Editar categoria</h3>
     
+            <input type="hidden" name="id" value="<%=categoria._id%>">
+
             <label for="nome">Nome:</label>
-            <input type="text" name="nome" placeholder="nome da categoria">
+            <input type="text" name="nome" placeholder="nome da categoria" value="<%= categoria.nome%>">
             
             <label for="slug">Slug:</label>
-            <input type="text" name="slug" placeholder="slug da categoria">
+            <input type="text" name="slug" placeholder="slug da categoria" value="<%= categoria.slug%>"> 
     
-            <button type="submit">Criar categoria</button>
+            <button type="submit">Editar categoria categoria</button>
         </form>
     </div>
    

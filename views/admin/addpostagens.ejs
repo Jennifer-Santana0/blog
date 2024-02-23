@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add postagens</title>
+</head>
+<body>
+    <%- include ('../partials/header.ejs') %>
+
+   
+    
+    <div id="container">
+        <form action="/admin/postagens/nova" method="post">
+
+            <%- include ("../partials/msg.ejs") %>
+           
+            <h4>Nova postagem</h4>
+            <label for="titulo">Titulo</label>
+            <input type="text" name="titulo">
+            <label for="slug">Slug</label>
+            <input type="text" name="slug">
+            <label for="descricao">Descricao</label>
+            <input type="text" name="descricao">
+            <label for="conteudo">Conteudo</label>
+            <textarea name="conteudo"cols="30" rows="10"></textarea>
+
+            <select name="categoria">
+                <%if(categoria.length>0){%>
+                    <%for(let i = 0;i<categoria.length;i++){%>
+                        <option value="<%=categoria[i].id%>"><%=categoria[i].nome%></option>
+                    <%}%>
+                <%} else {%>
+                    <option value="">Nenhuma categoriaa listada</option>
+                <%}%>
+               
+            </select>
+            
+          
+
+            <button type="submit">Criar postagens</button>
+        </form>
+      
+        
+    </div>
+</body>
+</html>

@@ -89,7 +89,28 @@ router.post('/admin/categorias/deletar',(req,res)=>{
     })
 })
 
+router.get('/admin/postagens',(req,res)=>{
+    res.render('admin/postagens')
+})
+router.get('/admin/postagens/add',(req,res)=>{
+    Categoria.find().then((categoria)=>{
+        res.render('admin/addpostagens',{categoria})
+    }).catch((err)=>{
+        req.flash('error_msg','Houve um erro ao carregar o formulario')
+        res.redirect('/admin')
+    })
+})
 
+
+router.post('/admin/postagens/nova',(req,res)=>{
+    if(req.body.titulo=='' || req.body.slug=='' || req.body.descricao=='' || req.body.conteudo==''){
+        req.flash('error_msg',"Algum campo esta avazio")
+       res.redirect('/admin/postagens/add')
+    } else {
+        res.send('ok')
+    }
+
+})
 
 module.exports = router
 

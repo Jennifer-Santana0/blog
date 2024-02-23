@@ -3,6 +3,8 @@ const router = express.Router()
 const mongoose = require('mongoose')
 require('../models/Categoria')
 const Categoria = mongoose.model('categorias')
+require('../models/Postagens')
+const Postagem = mongoose.model('postagens')
 
 
 router.get('/',(req,res)=>{
@@ -107,9 +109,22 @@ router.post('/admin/postagens/nova',(req,res)=>{
         req.flash('error_msg',"Algum campo esta avazio")
        res.redirect('/admin/postagens/add')
     } else {
-        res.send('ok')
-    }
+        const novaPostagem = {
+            titulo: req.body.titulo,
+            slug: req.body.slug,
+            descricao: req.body.descricao,
+            conteudo: req.body.conteudo,
+            categoria: req.body.categoria
+        }
 
+        new Postagem(novaPostagem).save().then(()=>{
+            req.flash('success_msg', "Postagem criada com sucesso")
+            res.redirect('/admin/postagens')
+        }).catch((err)=>{
+            req.flash('error_msg', "Houve algum erro")
+            res.redirect('/admin/postagens')
+        })
+    }
 })
 
 module.exports = router

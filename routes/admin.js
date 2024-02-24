@@ -92,16 +92,26 @@ router.post('/admin/categorias/deletar',(req,res)=>{
 })
 
 router.get('/admin/postagens',(req,res)=>{
-    res.render('admin/postagens')
+    Postagem.find().populate('categoria').sort({date:'desc'}).then((postagem)=>{
+        res.render('admin/postagens',{postagem})
+    }).catch((err)=>{
+        req.flash('error_msg','Houve algum erro')
+        console.log(err)
+        res.redirect('/admin')
+    })
 })
+
+
+
 router.get('/admin/postagens/add',(req,res)=>{
-    Categoria.find().then((categoria)=>{
-        res.render('admin/addpostagens',{categoria})
+    Postagem.find().lean().sort({ data: 'desc' }).then((postagem) => {
+        res.render('admin/addpostagens',{postagem})
     }).catch((err)=>{
         req.flash('error_msg','Houve um erro ao carregar o formulario')
         res.redirect('/admin')
     })
 })
+
 
 
 router.post('/admin/postagens/nova',(req,res)=>{

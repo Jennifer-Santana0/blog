@@ -10,12 +10,24 @@
     <%- include ('../partials/header.ejs') %>
 
     <div id="container">
+
         <%- include ("../partials/msg.ejs") %>
         <h1>Lista de Postagens</h1>
-        <hr>
+        
+        <%for(let i = 0;i<postagem.length;i++){%>
+            <div class="box">
+                <h4><%=postagem[i].titulo%></h4>
+                <p>Slug:<%=postagem[i].slug%></p>
+                <p>descricao:<%=postagem[i].descricao%></p>
+                <p>conteudo:<%=postagem[i].conteudo%></p>
+                
+            </div>
+        <%}%>
+        
         <a href="/admin/postagens/add">
             <button>Nova Postagens</button>
         </a>
+
     </div>
 
 </body>

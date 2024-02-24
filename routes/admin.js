@@ -71,7 +71,7 @@ router.post('/admin/categorias/edit',(req,res)=>{
 
         categoria.save().then(()=>{
             req.flash('success_msg','Categoria editada com sucesso')
-            res.redirect('/admin/categorias',)
+            res.redirect('/admin/categorias')
         }).catch((err)=>{
             req.flash('error_msg','Houve algum erro interno ao salvar a categoria')
             res.redirect('/admin/categorias')
@@ -104,8 +104,8 @@ router.get('/admin/postagens',(req,res)=>{
 
 
 router.get('/admin/postagens/add',(req,res)=>{
-    Postagem.find().lean().sort({ data: 'desc' }).then((postagem) => {
-        res.render('admin/addpostagens',{postagem})
+    Categoria.find().then((categoria)=>{
+        res.render('admin/addpostagens',{categoria})
     }).catch((err)=>{
         req.flash('error_msg','Houve um erro ao carregar o formulario')
         res.redirect('/admin')
@@ -135,6 +135,44 @@ router.post('/admin/postagens/nova',(req,res)=>{
             res.redirect('/admin/postagens')
         })
     }
+})
+
+router.get('/admin/postagens/edit/:id',(req,res)=>{
+
+    Postagem.findOne({_id:req.params.id}).then((postagem)=>{
+        Categoria.find().then((categoria)=>{
+            res.render('admin/editpostagens',{categoria,postagem})
+        }).catch((err)=>{
+            req.flash('error_msg','Houve um erro ao listar as categoria')
+            res.redirect('/admin/postagem')
+        })
+
+    }).catch((err)=>{
+        req.flash('error_msg','Houve algum erro ao carregar o formulario')
+        res.redirect('/admin/postagem')
+    })
+
+    
+})
+
+router.post('/admin/postagem/edit',(req,res)=>{
+    Postagem.findOne({_id:req.body.id}).then((postagem)=>{
+        postagem.titulo = req.body.titulo
+        postagem.slug = req.body.slug
+        postagem.conteudo = req.body.conteudo
+        postagem.descricao = req.body.descricao
+
+        postagem.save().then(()=>{
+            req.flash('success_msg','Postagem editdata com sucesso')
+            res.redirect('/admin/postagens')
+        }).catch((err)=>{
+            req.flash('error_msg','Houve algum erro ao editar a postagem')
+            res.redirect('/admin/postagens')
+        })
+    }).catch((err)=>{
+        req.flash('errer_msg','Houve um erro')
+        res.redirect('/admin/postagens')
+    })
 })
 
 module.exports = router

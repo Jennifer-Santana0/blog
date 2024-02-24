@@ -20,7 +20,10 @@
                 <p>Slug:<%=postagem[i].slug%></p>
                 <p>descricao:<%=postagem[i].descricao%></p>
                 <p>conteudo:<%=postagem[i].conteudo%></p>
-                
+                <br>
+                <a href='/admin/postagens/edit/<%=postagem[i].id%>'>
+                    <button>Editar</button>
+                </a>
             </div>
         <%}%>
         

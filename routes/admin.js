@@ -34,6 +34,28 @@ router.get('/admin/postagens/:slug',(req,res)=>{
     })
 })
 
+router.get('/categorias',(req,res)=>{
+    Categoria.find().sort({data:'desc'}).then((categoria)=>{
+        res.render('categorias/index',{categoria})
+    }).catch((err)=>{
+        req.flash('error_msg','houve um erro interno ao listar as categorias')
+        res.redirect('/')
+    })
+})
+
+router.get('/categorias/:slug',(req,res)=>{
+    Categoria.findOne({slug:req.params.slug}).then((categoria)=>{
+        if(categoria){
+            res.render('categorias/categorias',{categoria})
+        }else{
+            req.flash('error_msg','Esta categoria nao existe')
+            res.redirect('/')
+        }
+    }).catch((err)=>{
+        req.flash('error_msg','houve um erro interno ao listar as categorias')
+        res.redirect('/')
+    })
+})
 
 router.get('/admin/categorias',(req,res)=>{
     Categoria.find().sort({date:'desc'}).then((categorias)=>{
@@ -42,6 +64,8 @@ router.get('/admin/categorias',(req,res)=>{
         res.send('houve um erro ao listar as categorias')
     })
 })
+
+
 
 router.get('/admin/categorias/add',(req,res)=>{
     res.render('admin/addcategorias',{erros:[]})

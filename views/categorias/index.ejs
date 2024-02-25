@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include ("../partials/header.ejs") %>
+    <div id="container">
+        <%- include ("../partials/msg.ejs") %>
+        <h1>Categorias</h1>
+        <%if(categoria.length>0){%>
+            <%for(let i = 0;i<categoria.length;i++){%>
+                <div class="box">
+                    <a  style="color: black;" href="/categorias/<%=categoria[i].slug%>">
+                        <%=categoria[i].nome%>
+                    </a>
+                    
+                </div>
+            <%}%>
+        <%}else{%>
+            <p>nehuma categoria listada</p>
+        <%}%>
+    </div>
+</body>
+</html>

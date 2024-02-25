@@ -8,12 +8,32 @@ const Postagem = mongoose.model('postagens')
 
 
 router.get('/',(req,res)=>{
-    res.render('main')
+    Postagem.find().sort({data:'desc'}).then((postagem)=>{
+        res.render('index',{postagem})
+    }).catch((err)=>{
+        req.flash('error_msg',"Houve um erro interno")
+        res.redirect('/404')
+    })
 })
 
-router.get('/admin',(req,res)=>{
-    res.render('admin/index')
+router.get('/404',(req,res)=>{
+    res.render('404')
 })
+
+router.get('/admin/postagens/:slug',(req,res)=>{
+    Postagem.findOne({slug:req.params.slug}).then((postagem)=>{
+        if(postagem){
+            res.render('postagem/index',{postagem})
+        }else {
+            req.flash('error_msg','esta postagem nao existe')
+            res.redirect('/')
+        }
+    }).catch((err)=>{
+        req.flash('error_msg','Houve um erro interno')
+        res.redirect('/')
+    })
+})
+
 
 router.get('/admin/categorias',(req,res)=>{
     Categoria.find().sort({date:'desc'}).then((categorias)=>{
@@ -174,6 +194,18 @@ router.post('/admin/postagem/edit',(req,res)=>{
         res.redirect('/admin/postagens')
     })
 })
+
+router.post('/admin/postagem/deletar',(req,res)=>{
+    Postagem.deleteOne({_id:req.body.id}).then(()=>{
+        req.flash('success_msg','Postagem deletada com sucesso')
+        res.redirect('/admin/postagens')
+    }).catch((err)=>{
+        req.flash('error_msg','Houve um erro')
+        res.redirect('/admin/postagens')
+    })
+})
+
+
 
 module.exports = router
 

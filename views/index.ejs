@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+</head>
+<body>
+
+    <%- include ("./partials/header.ejs") %>
+    
+    
+    
+    
+    <div id="container">
+        <%- include ("./partials/msg.ejs") %>
+        <br>
+        <h1>Bem vindo ao Blog</h1>
+
+        <button>Crie uma conta</button>
+        <hr>
+
+        <br><br><br>
+        <h2>Postagens recentes</h2>
+        <%if(postagem.length>0){%>
+            <%for(let i = 0;i<postagem.length;i++){%>
+                <div class="box">
+                    <h4><%=postagem[i].titulo%></h4>
+                    <p>descricao:<%=postagem[i].descricao%></p>
+                    <small><p>Data:<%=postagem[i].data%></p></small>
+                    <a href="/admin/postagens/<%=postagem[i].slug%>"><button>Ler mais</button></a>
+                </div>
+            <%}%>
+        <%}else{%>
+            <p>nehuma postagens listada</p>
+        <%}%>
+        
+
+        <a href="/admin/postagens">
+            <button>postagens</button>
+        </a>
+        <a href="/admin/categorias">
+            <button>categorias</button>
+        </a>
+    </div>
+    
+</body>
+</html>

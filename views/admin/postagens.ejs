@@ -24,11 +24,16 @@
                 <a href='/admin/postagens/edit/<%=postagem[i].id%>'>
                     <button>Editar</button>
                 </a>
+                <form action="/admin/postagem/deletar" method="post">
+                    <input type="hidden" name="id" value="<%=postagem[i].id%>">
+                    <button type="submit">Deletar postagem</button>
+                </form>
+                
             </div>
         <%}%>
         
         <a href="/admin/postagens/add">
-            <button>Nova Postagens</button>
+            <button>Nova Postagem</button>
         </a>
 
     </div>

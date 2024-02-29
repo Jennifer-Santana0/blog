@@ -6,6 +6,8 @@
     const mongoose = require('mongoose')
     const session = require('express-session')
     const flash = require('connect-flash')
+    const passport = require('passport')
+    require('./config/auth')(passport)
     const app = express()
 
 //CONFIGURACOES
@@ -15,6 +17,10 @@
         resave: true,
         saveUninitialized: true
     }))
+
+    app.use(passport.initialize())
+    app.use(passport.session())
+
     //flash
     app.use(flash())
 
